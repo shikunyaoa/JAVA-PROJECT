@@ -14,7 +14,7 @@
     <bytecodeTargetLevel>
       <module name="03.JAVA_CORE" target="8" />
       <module name="04.JAVA_PRO" target="1.8" />
-      <module name="05.JAVA_THREAD" target="7" />
+      <module name="05.JAVA_THREAD" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
