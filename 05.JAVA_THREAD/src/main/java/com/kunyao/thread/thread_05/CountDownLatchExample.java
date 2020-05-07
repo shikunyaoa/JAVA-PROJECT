@@ -15,15 +15,12 @@ public class CountDownLatchExample {
     private static int data;
 
     public static void main(String[] args) throws InterruptedException {
-        Thread workerThread = new Thread(){
-            @Override
-            public void run() {
-                for (int i = 0; i < 10 ; i++) {
-                    data = i;
-                    latch.countDown();
-                }
+        Thread workerThread = new Thread(() -> {
+            for (int i = 0; i < 10 ; i++) {
+                data = i;
+                latch.countDown();
             }
-        };
+        });
 
         workerThread.start();
         //当倒计时计数器为0时返回，唤醒其他等待的线程
