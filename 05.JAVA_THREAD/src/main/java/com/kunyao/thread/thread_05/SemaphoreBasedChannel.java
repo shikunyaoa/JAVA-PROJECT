@@ -18,6 +18,9 @@ public class SemaphoreBasedChannel<P> implements Channel {
     private final BlockingQueue<P> queue;
     private final Semaphore semaphore;
 
+    public SemaphoreBasedChannel(BlockingQueue<P> queue, int flowLimit) {
+        this(queue, flowLimit, false);
+    }
 
     public SemaphoreBasedChannel(BlockingQueue<P> queue, int flowLimit, boolean isFair) {
         this.queue = queue;
