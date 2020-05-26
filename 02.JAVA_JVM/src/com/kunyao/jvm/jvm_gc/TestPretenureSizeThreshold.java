@@ -4,6 +4,7 @@ package com.kunyao.jvm.jvm_gc;
  * @ClassName: TestPretenureSizeThreshold
  * @Author: kunyao
  * @Description: 大对象直接进入老年代
+ *  -XX: PretenureSizeThreshold:指定大于该设置值的对象直接在老年代分配
  * @Date: 2020/5/24 23:20
  * @Version: 1.0
  */
