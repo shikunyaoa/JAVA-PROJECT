@@ -1,4 +1,4 @@
-package com.kunyao.jvm.stack;
+package com.kunyao.jvm.jvm_memory.stack;
 
 /**
  * @ClassName: stackoverflow

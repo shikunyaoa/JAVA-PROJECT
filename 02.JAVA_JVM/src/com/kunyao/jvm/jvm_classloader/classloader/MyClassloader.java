@@ -1,7 +1,6 @@
-package com.kunyao.jvm.classloader;
+package com.kunyao.jvm.jvm_classloader.classloader;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

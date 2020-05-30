@@ -1,4 +1,4 @@
-package com.kunyao.jvm.heap;
+package com.kunyao.jvm.jvm_memory.heap;
 
 import java.util.ArrayList;
 import java.util.List;

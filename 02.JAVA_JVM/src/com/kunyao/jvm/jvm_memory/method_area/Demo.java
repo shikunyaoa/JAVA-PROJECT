@@ -1,4 +1,4 @@
-package com.kunyao.jvm.method_area;
+package com.kunyao.jvm.jvm_memory.method_area;
 
 import jdk.internal.org.objectweb.asm.ClassWriter;
 import jdk.internal.org.objectweb.asm.Opcodes;

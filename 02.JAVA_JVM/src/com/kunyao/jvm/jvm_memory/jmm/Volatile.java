@@ -1,4 +1,4 @@
-package com.kunyao.jvm.jmm;
+package com.kunyao.jvm.jvm_memory.jmm;
 
 /**
  * @ClassName: Volatile
