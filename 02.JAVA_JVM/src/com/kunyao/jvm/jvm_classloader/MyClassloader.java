@@ -1,4 +1,4 @@
-package com.kunyao.jvm.jvm_classloader.classloader;
+package com.kunyao.jvm.jvm_classloader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
