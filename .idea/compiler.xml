@@ -7,9 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="03.JAVA_CORE" />
-        <module name="06_JAVA_ALGORITHM" />
-        <module name="04.JAVA_PRO" />
         <module name="05.JAVA_THREAD" />
+        <module name="07_JAVA_CODE_ANALYSIS" />
+        <module name="04.JAVA_PRO" />
+        <module name="06_JAVA_ALGORITHM" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -17,6 +18,7 @@
       <module name="04.JAVA_PRO" target="1.8" />
       <module name="05.JAVA_THREAD" target="1.8" />
       <module name="06_JAVA_ALGORITHM" target="1.8" />
+      <module name="07_JAVA_CODE_ANALYSIS" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
