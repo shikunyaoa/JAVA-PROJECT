@@ -231,6 +231,8 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * The default initial capacity - MUST be a power of two.
+     *
+     * HashMap的哈希桶数组默认的初始化容量
      */
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
 
@@ -238,11 +240,13 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
      * MUST be a power of two <= 1<<30.
+     * HashMap的哈希桶数组最大的容量
      */
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
      * The load factor used when none specified in constructor.
+     * 默认的加载因子
      */
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
@@ -253,6 +257,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * than 2 and should be at least 8 to mesh with assumptions in
      * tree removal about conversion back to plain bins upon
      * shrinkage.
+     * HashMap中一个桶的树化的阈值（一旦同一个哈希桶中的元素超过了8个，链表就会变成红黑树）
      */
     static final int TREEIFY_THRESHOLD = 8;
 
@@ -260,6 +265,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * The bin count threshold for untreeifying a (split) bin during a
      * resize operation. Should be less than TREEIFY_THRESHOLD, and at
      * most 6 to mesh with shrinkage detection under removal.
+     * HashMap中一个桶链表化的阈值（一旦同一个哈希桶中的元素少于6个，红黑树就会变成链表）
      */
     static final int UNTREEIFY_THRESHOLD = 6;
 
@@ -268,6 +274,8 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * (Otherwise the table is resized if too many nodes in a bin.)
      * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
      * between resizing and treeification thresholds.
+     *
+     * 哈希桶数组的最小树形化容量
      */
     static final int MIN_TREEIFY_CAPACITY = 64;
 
@@ -276,9 +284,11 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * TreeNode subclass, and in LinkedHashMap for its Entry subclass.)
      */
     static class Node<K,V> implements Map.Entry<K,V> {
+        //主要用于定位当前Node在数组位置的索引
         final int hash;
         final K key;
         V value;
+        //指代链表中的下一个Node
         Node<K,V> next;
 
         Node(int hash, K key, V value, Node<K,V> next) {
@@ -373,12 +383,13 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * Returns a power of two size for the given target capacity.
+     * 找到大于或等于cap的最小的2的幂
      */
     static final int tableSizeFor(int cap) {
-        int n = cap - 1;
-        n |= n >>> 1;
-        n |= n >>> 2;
-        n |= n >>> 4;
+        int n = cap - 1; //64
+        n |= n >>> 1; //0100 0000 | 0010 0000 = 0110 0000
+        n |= n >>> 2; //0110 0000 | 0001 1000 = 0111 1000
+        n |= n >>> 4; //0111 1000 | 0000 0111 = 0111 1111
         n |= n >>> 8;
         n |= n >>> 16;
         return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
@@ -397,11 +408,15 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     /**
      * Holds cached entrySet(). Note that AbstractMap fields are used
      * for keySet() and values().
+     * HashMap中的键值对缓存在entrySet中，即使key在外部修改导致hashCode变化，该缓存中
+     * 仍然可以找到映射关系。
      */
     transient Set<Map.Entry<K,V>> entrySet;
 
     /**
      * The number of key-value mappings contained in this map.
+     *
+     * HashMap中键值对的个数
      */
     transient int size;
 
@@ -422,13 +437,16 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     // (The javadoc description is true upon serialization.
     // Additionally, if the table array has not been allocated, this
     // field holds the initial array capacity, or zero signifying
-    // DEFAULT_INITIAL_CAPACITY.)
+    // DEFAULT_INITIAL_CAPACITY
+    //hashMap中实例允许存储的最大数量
     int threshold;
 
     /**
      * The load factor for the hash table.
      *
      * @serial
+     *
+     * 加载因子
      */
     final float loadFactor;
 
@@ -500,14 +518,20 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         int s = m.size();
         if (s > 0) {
             if (table == null) { // pre-size
+                //根据m的键值对数量和HashMap的装载因子计算阈值
                 float ft = ((float)s / loadFactor) + 1.0F;
                 int t = ((ft < (float)MAXIMUM_CAPACITY) ?
                          (int)ft : MAXIMUM_CAPACITY);
+
+                //如果新阈值t大于HashMap的当前阈值，则需要重新计算阈值
                 if (t > threshold)
                     threshold = tableSizeFor(t);
             }
+            //如果s大于当前阈值，则调用resize()进行扩容
             else if (s > threshold)
                 resize();
+
+            //遍历map中的键值对，把键值对添加到当前HashMap中
             for (Map.Entry<? extends K, ? extends V> e : m.entrySet()) {
                 K key = e.getKey();
                 V value = e.getValue();
@@ -608,6 +632,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      *         previously associated <tt>null</tt> with <tt>key</tt>.)
      */
     public V put(K key, V value) {
+        //根据key计算hash值，可以通过hash定位当前键值对在哈希桶数组的索引
         return putVal(hash(key), key, value, false, true);
     }
 

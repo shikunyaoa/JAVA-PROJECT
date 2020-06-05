@@ -215,6 +215,8 @@ public class ArrayList<E> extends AbstractList<E>
      */
     public void trimToSize() {
         modCount++;
+        //如果size为0则将elementData置为空数组
+        //否则将elementData置为size长度的数组
         if (size < elementData.length) {
             elementData = (size == 0)
               ? EMPTY_ELEMENTDATA
@@ -279,6 +281,7 @@ public class ArrayList<E> extends AbstractList<E>
     private void grow(int minCapacity) {
         // overflow-conscious code
         int oldCapacity = elementData.length;
+        //设置新的长度为原始长度的1.5倍
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         if (newCapacity - minCapacity < 0)
             newCapacity = minCapacity;
@@ -354,6 +357,8 @@ public class ArrayList<E> extends AbstractList<E>
      * More formally, returns the highest index <tt>i</tt> such that
      * <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>,
      * or -1 if there is no such index.
+     *
+     * 反向遍历数组中的每一个元素进行对比，如果找到返回下标
      */
     public int lastIndexOf(Object o) {
         if (o == null) {
@@ -376,6 +381,7 @@ public class ArrayList<E> extends AbstractList<E>
      */
     public Object clone() {
         try {
+            //clone出新的对象并返回
             ArrayList<?> v = (ArrayList<?>) super.clone();
             v.elementData = Arrays.copyOf(elementData, size);
             v.modCount = 0;
@@ -616,6 +622,8 @@ public class ArrayList<E> extends AbstractList<E>
      * @param c collection containing elements to be added to this list
      * @return <tt>true</tt> if this list changed as a result of the call
      * @throws NullPointerException if the specified collection is null
+     *
+     * 将集合c追加到ArrayList中
      */
     public boolean addAll(Collection<? extends E> c) {
         Object[] a = c.toArray();
@@ -640,6 +648,8 @@ public class ArrayList<E> extends AbstractList<E>
      * @return <tt>true</tt> if this list changed as a result of the call
      * @throws IndexOutOfBoundsException {@inheritDoc}
      * @throws NullPointerException if the specified collection is null
+     *
+     * 从index位置开始，将集合c添加到ArrayList中
      */
     public boolean addAll(int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
@@ -649,10 +659,11 @@ public class ArrayList<E> extends AbstractList<E>
         ensureCapacityInternal(size + numNew);  // Increments modCount
 
         int numMoved = size - index;
+        //将index后的元素移动numMoved位
         if (numMoved > 0)
             System.arraycopy(elementData, index, elementData, index + numNew,
                              numMoved);
-
+        //将集合c中的元素复制到elementData中index开始处
         System.arraycopy(a, 0, elementData, index, numNew);
         size += numNew;
         return numNew != 0;
@@ -671,14 +682,17 @@ public class ArrayList<E> extends AbstractList<E>
      *          fromIndex >= size() ||
      *          toIndex > size() ||
      *          toIndex < fromIndex})
+     *
+     * 删除fromIndex到toIndex之间的全部元素
      */
     protected void removeRange(int fromIndex, int toIndex) {
         modCount++;
         int numMoved = size - toIndex;
+        //将toIndex后的元素移动到fromIndex的位置
         System.arraycopy(elementData, toIndex, elementData, fromIndex,
                          numMoved);
 
-        // clear to let GC do its work
+        //将剩下的空间置为null，等待垃圾收集器收集
         int newSize = size - (toIndex-fromIndex);
         for (int i = newSize; i < size; i++) {
             elementData[i] = null;
@@ -691,6 +705,8 @@ public class ArrayList<E> extends AbstractList<E>
      * runtime exception.  This method does *not* check if the index is
      * negative: It is always used immediately prior to an array access,
      * which throws an ArrayIndexOutOfBoundsException if index is negative.
+     *
+     * 下标检测
      */
     private void rangeCheck(int index) {
         if (index >= size)
@@ -699,6 +715,8 @@ public class ArrayList<E> extends AbstractList<E>
 
     /**
      * A version of rangeCheck used by add and addAll.
+     *
+     * 添加元素时的下标检测
      */
     private void rangeCheckForAdd(int index) {
         if (index > size || index < 0)
@@ -767,6 +785,7 @@ public class ArrayList<E> extends AbstractList<E>
             // Preserve behavioral compatibility with AbstractCollection,
             // even if c.contains() throws.
             if (r != size) {
+                //将下标r后的元素复制到下标w后
                 System.arraycopy(elementData, r,
                                  elementData, w,
                                  size - r);
@@ -791,6 +810,9 @@ public class ArrayList<E> extends AbstractList<E>
      * @serialData The length of the array backing the <tt>ArrayList</tt>
      *             instance is emitted (int), followed by all of its elements
      *             (each an <tt>Object</tt>) in the proper order.
+     *
+     *
+     *  将ArrayList中的元素都写入到输出流中
      */
     private void writeObject(java.io.ObjectOutputStream s)
         throws java.io.IOException{
@@ -814,6 +836,8 @@ public class ArrayList<E> extends AbstractList<E>
     /**
      * Reconstitute the <tt>ArrayList</tt> instance from a stream (that is,
      * deserialize it).
+     *
+     * 从输入六种读取数据
      */
     private void readObject(java.io.ObjectInputStream s)
         throws java.io.IOException, ClassNotFoundException {
@@ -848,6 +872,8 @@ public class ArrayList<E> extends AbstractList<E>
      * <p>The returned list iterator is <a href="#fail-fast"><i>fail-fast</i></a>.
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
+     *
+     * 返回一个listIterator迭代器
      */
     public ListIterator<E> listIterator(int index) {
         if (index < 0 || index > size)
@@ -1507,4 +1533,9 @@ public class ArrayList<E> extends AbstractList<E>
         }
         modCount++;
     }
+
+
+    /**
+     * 结论： ArrayList的remove，add(index,E)，addAll以及容量不足时都会进行System.arrycopy操作，比较耗时
+     */
 }

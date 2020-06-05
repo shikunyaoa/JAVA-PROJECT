@@ -3204,8 +3204,15 @@ public class Arrays {
      *     <tt>original</tt> is not of a runtime type that can be stored in
      *     an array of class <tt>newType</tt>
      * @since 1.6
+     *
+     *
+     * //参数1: 要复制的数组
+     * //参数2：要返回的副本的长度
+     * //参数3：要返回的副本的类型
      */
     public static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
+
+        //创建一个长度为newLength的数组，并将原始数组的值复制到新数组中
         @SuppressWarnings("unchecked")
         T[] copy = ((Object)newType == (Object)Object[].class)
             ? (T[]) new Object[newLength]

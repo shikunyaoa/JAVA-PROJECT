@@ -16,5 +16,13 @@ public class ArrayList_Analysis {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList();
+
+        list.add("测试3");
+        list.add("测试32");
+        list.add("测试4");
+
+        List<String> list1 = new ArrayList<>();
+        list.add("测试3");
+        list.retainAll(list1);
     }
 }

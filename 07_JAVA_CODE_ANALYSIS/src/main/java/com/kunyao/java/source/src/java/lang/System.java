@@ -489,6 +489,9 @@ public final class System {
      *               because of a type mismatch.
      * @exception  NullPointerException if either <code>src</code> or
      *               <code>dest</code> is <code>null</code>.
+     *
+     *  该函数实际上最终调用了C语言的memmove()函数
+     *  保证同一个数组内元素的正确复制和移动
      */
     public static native void arraycopy(Object src,  int  srcPos,
                                         Object dest, int destPos,
