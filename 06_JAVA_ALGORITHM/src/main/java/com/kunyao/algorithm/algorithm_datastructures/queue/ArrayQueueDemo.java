@@ -1,4 +1,4 @@
-package com.kunyao.algorithm.algorithm_datastructures;
+package com.kunyao.algorithm.algorithm_datastructures.queue;
 
 /**
  * @ClassName: ArrayQueueDemo
