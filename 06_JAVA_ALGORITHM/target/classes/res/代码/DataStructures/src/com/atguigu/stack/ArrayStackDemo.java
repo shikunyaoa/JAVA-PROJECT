@@ -5,33 +5,33 @@ import java.util.Scanner;
 public class ArrayStackDemo {
 
 	public static void main(String[] args) {
-		//²âÊÔÒ»ÏÂArrayStack ÊÇ·ñÕýÈ·
-		//ÏÈ´´½¨Ò»¸öArrayStack¶ÔÏó->±íÊ¾Õ»
+		//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ArrayStackDemo ï¿½Ç·ï¿½ï¿½ï¿½È·
+		//ï¿½È´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ArrayStackDemoï¿½ï¿½ï¿½ï¿½->ï¿½ï¿½Ê¾Õ»
 		ArrayStack stack = new ArrayStack(4);
 		String key = "";
-		boolean loop = true; //¿ØÖÆÊÇ·ñÍË³ö²Ëµ¥
+		boolean loop = true; //ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ë³ï¿½ï¿½Ëµï¿½
 		Scanner scanner = new Scanner(System.in);
 		
 		while(loop) {
-			System.out.println("show: ±íÊ¾ÏÔÊ¾Õ»");
-			System.out.println("exit: ÍË³ö³ÌÐò");
-			System.out.println("push: ±íÊ¾Ìí¼ÓÊý¾Ýµ½Õ»(ÈëÕ»)");
-			System.out.println("pop: ±íÊ¾´ÓÕ»È¡³öÊý¾Ý(³öÕ»)");
-			System.out.println("ÇëÊäÈëÄãµÄÑ¡Ôñ");
+			System.out.println("show: ï¿½ï¿½Ê¾ï¿½ï¿½Ê¾Õ»");
+			System.out.println("exit: ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("push: ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Õ»(ï¿½ï¿½Õ»)");
+			System.out.println("pop: ï¿½ï¿½Ê¾ï¿½ï¿½Õ»È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Õ»)");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½");
 			key = scanner.next();
 			switch (key) {
 			case "show":
 				stack.list();
 				break;
 			case "push":
-				System.out.println("ÇëÊäÈëÒ»¸öÊý");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½");
 				int value = scanner.nextInt();
 				stack.push(value);
 				break;
 			case "pop":
 				try {
 					int res = stack.pop();
-					System.out.printf("³öÕ»µÄÊý¾ÝÊÇ %d\n", res);
+					System.out.printf("ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ %d\n", res);
 				} catch (Exception e) {
 					// TODO: handle exception
 					System.out.println(e.getMessage());
@@ -46,59 +46,59 @@ public class ArrayStackDemo {
 			}
 		}
 		
-		System.out.println("³ÌÐòÍË³ö~~~");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½~~~");
 	}
 
 }
 
-//¶¨ÒåÒ»¸ö ArrayStack ±íÊ¾Õ»
+//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ ArrayStackDemo ï¿½ï¿½Ê¾Õ»
 class ArrayStack {
-	private int maxSize; // Õ»µÄ´óÐ¡
-	private int[] stack; // Êý×é£¬Êý×éÄ£ÄâÕ»£¬Êý¾Ý¾Í·ÅÔÚ¸ÃÊý×é
-	private int top = -1;// top±íÊ¾Õ»¶¥£¬³õÊ¼»¯Îª-1
+	private int maxSize; // Õ»ï¿½Ä´ï¿½Ð¡
+	private int[] stack; // ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¾Í·ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int top = -1;// topï¿½ï¿½Ê¾Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Îª-1
 	
-	//¹¹ÔìÆ÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public ArrayStack(int maxSize) {
 		this.maxSize = maxSize;
 		stack = new int[this.maxSize];
 	}
 	
-	//Õ»Âú
+	//Õ»ï¿½ï¿½
 	public boolean isFull() {
 		return top == maxSize - 1;
 	}
-	//Õ»¿Õ
+	//Õ»ï¿½ï¿½
 	public boolean isEmpty() {
 		return top == -1;
 	}
-	//ÈëÕ»-push
+	//ï¿½ï¿½Õ»-push
 	public void push(int value) {
-		//ÏÈÅÐ¶ÏÕ»ÊÇ·ñÂú
+		//ï¿½ï¿½ï¿½Ð¶ï¿½Õ»ï¿½Ç·ï¿½ï¿½ï¿½
 		if(isFull()) {
-			System.out.println("Õ»Âú");
+			System.out.println("Õ»ï¿½ï¿½");
 			return;
 		}
 		top++;
 		stack[top] = value;
 	}
-	//³öÕ»-pop, ½«Õ»¶¥µÄÊý¾Ý·µ»Ø
+	//ï¿½ï¿½Õ»-pop, ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½
 	public int pop() {
-		//ÏÈÅÐ¶ÏÕ»ÊÇ·ñ¿Õ
+		//ï¿½ï¿½ï¿½Ð¶ï¿½Õ»ï¿½Ç·ï¿½ï¿½
 		if(isEmpty()) {
-			//Å×³öÒì³£
-			throw new RuntimeException("Õ»¿Õ£¬Ã»ÓÐÊý¾Ý~");
+			//ï¿½×³ï¿½ï¿½ì³£
+			throw new RuntimeException("Õ»ï¿½Õ£ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~");
 		}
 		int value = stack[top];
 		top--;
 		return value;
 	}
-	//ÏÔÊ¾Õ»µÄÇé¿ö[±éÀúÕ»]£¬ ±éÀúÊ±£¬ÐèÒª´ÓÕ»¶¥¿ªÊ¼ÏÔÊ¾Êý¾Ý
+	//ï¿½ï¿½Ê¾Õ»ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Õ»]ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 	public void list() {
 		if(isEmpty()) {
-			System.out.println("Õ»¿Õ£¬Ã»ÓÐÊý¾Ý~~");
+			System.out.println("Õ»ï¿½Õ£ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~~");
 			return;
 		}
-		//ÐèÒª´ÓÕ»¶¥¿ªÊ¼ÏÔÊ¾Êý¾Ý
+		//ï¿½ï¿½Òªï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 		for(int i = top; i >= 0 ; i--) {
 			System.out.printf("stack[%d]=%d\n", i, stack[i]);
 		}

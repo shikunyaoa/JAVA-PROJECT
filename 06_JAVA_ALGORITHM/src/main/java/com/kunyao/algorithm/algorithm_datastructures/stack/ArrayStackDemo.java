@@ -11,7 +11,8 @@ public class ArrayStackDemo {
 
     public static void main(String[] args) {
 
-        String expression = "3*2+1-3";
+        //中缀表达式
+        String expression = "30*2+1-3";
         ArrayStack numberStack = new ArrayStack(10);
         ArrayStack oprStack = new ArrayStack(10);
         int num1 = 0;
@@ -21,10 +22,11 @@ public class ArrayStackDemo {
         int index = 0;
         char ch = ' ';
 
+        String keepNum = "";
         while(true){
             ch = expression.substring(index, index + 1).charAt(0);
-            if(!oprStack.isOper(ch)){
-                if(oprStack.isEmpty()){
+            if(oprStack.isOper(ch)){
+                if(!oprStack.isEmpty()){
                     if(oprStack.priority(ch) <= oprStack.priority(oprStack.peek())){
                         num1 = numberStack.pop();
                         num2 = numberStack.pop();
@@ -39,7 +41,20 @@ public class ArrayStackDemo {
                     oprStack.push(ch);
                 }
             }else{
-                numberStack.push(ch - 48);
+                //可能是多位的数字
+                keepNum += ch;
+
+                //当是最后一位时，直接入栈
+                if(index == expression.length() - 1){
+                    numberStack.push(Integer.parseInt(keepNum));
+                }else{
+
+                    if(oprStack.isOper(expression.substring(index +1, index + 2).charAt(0))){
+                        numberStack.push(Integer.parseInt(keepNum));
+                        keepNum = "";
+                    }
+                }
+
             }
             index++;
             if(index >= expression.length()){
@@ -145,7 +160,7 @@ class ArrayStack{
                 sum = num2 - num1;
                 break;
             case '+':
-                sum = sum2 + num1;
+                sum = num2 + num1;
                 break;
             default:
                 break;
