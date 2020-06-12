@@ -515,7 +515,7 @@ public class SocketOrChannelAcceptorImpl
     // Factory methods.
     //
 
-    // REVISIT: refactor into common base or delegate.
+    // REVISIT: refactor_01 into common base or delegate.
     public MessageMediator createMessageMediator(Broker broker,
                                                  Connection connection)
     {
@@ -525,7 +525,7 @@ public class SocketOrChannelAcceptorImpl
         return contactInfo.createMessageMediator(broker, connection);
     }
 
-    // REVISIT: refactor into common base or delegate.
+    // REVISIT: refactor_01 into common base or delegate.
     public MessageMediator finishCreatingMessageMediator(Broker broker,
                                                          Connection connection,
                                                          MessageMediator messageMediator)

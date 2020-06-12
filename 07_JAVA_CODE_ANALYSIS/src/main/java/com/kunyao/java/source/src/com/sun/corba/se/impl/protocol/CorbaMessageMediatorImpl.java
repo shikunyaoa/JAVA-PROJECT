@@ -796,7 +796,7 @@ public class CorbaMessageMediatorImpl
 
     private void setInputObject()
     {
-        // REVISIT: refactor createInputObject (and createMessageMediator)
+        // REVISIT: refactor_01 createInputObject (and createMessageMediator)
         // into base PlugInFactory.  Get via connection (either ContactInfo
         // or Acceptor).
         if (getConnection().getContactInfo() != null) {

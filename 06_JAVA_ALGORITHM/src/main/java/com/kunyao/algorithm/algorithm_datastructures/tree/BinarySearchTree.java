@@ -136,9 +136,13 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }else if(compareResult > 0){
             root.right = remove(t, root.right);
         }else if(root.left != null && root.right != null){
+            //如果有两个儿子
+            //删除策略是：
+            //用其右子树的最小的数据代替该节点的数据并递归的删除那个节点
             root.element = findMin(root.right).element;
             root.right = remove(root.element, root.right);
         }else{
+            //如果节点有一个儿子，则调整父节点的链进行删除
             root = (root.left != null) ? root.left : root.right;
         }
 
