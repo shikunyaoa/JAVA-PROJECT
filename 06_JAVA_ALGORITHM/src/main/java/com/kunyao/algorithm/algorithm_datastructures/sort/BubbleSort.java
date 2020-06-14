@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @ClassName: BubbleSort
  * @Author: kunyao
- * @Description: 冒泡排序
+ * @Description: 冒泡排序: 将两个相邻的元素之间进行比较，然后互换位置
  * @Date: 2020/6/14 10:56
  * @Version: 1.0
  */

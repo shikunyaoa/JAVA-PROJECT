@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * @ClassName: SelectSort
  * @Author: kunyao
- * @Description: 选择排序
+ * @Description: 选择排序：假定一个元素为最小元素，然后与其他元素进行比较，然后进行互换位置
  * @Date: 2020/6/14 12:03
  * @Version: 1.0
  */
