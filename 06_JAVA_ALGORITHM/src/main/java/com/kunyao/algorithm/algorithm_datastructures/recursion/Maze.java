@@ -1,13 +1,13 @@
 package com.kunyao.algorithm.algorithm_datastructures.recursion;
 
 /**
- * @ClassName: maze
+ * @ClassName: Maze
  * @Author: kunyao
  * @Description: 迷宫回溯问题
  * @Date: 2020/6/13 15:14
  * @Version: 1.0
  */
-public class maze {
+public class Maze {
 
     public static void main(String[] args) {
 
