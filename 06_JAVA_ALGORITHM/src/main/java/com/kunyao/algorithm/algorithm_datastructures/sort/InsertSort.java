@@ -23,10 +23,14 @@ public class InsertSort {
             //待插入的位置
             int insertIndex = i - 1;
 
+            //找到有序表中最合适的插入位置
             while(insertIndex >= 0 && insertVal < arr[insertIndex]){
+                //将有序表的容量加一
                 arr[insertIndex + 1] = arr[insertIndex];
+
                 insertIndex--;
             }
+
             if(insertIndex + 1 != i){
                 arr[insertIndex + 1] = insertVal;
             }

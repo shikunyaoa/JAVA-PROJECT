@@ -25,7 +25,9 @@ public class BubbleSort {
     private static void bubbleSort(int[] arr) {
         int temp = 0;
         boolean flag = false;
+        //外层循环控制循环次数
         for (int j = arr.length - 1; j > 0; j--) {
+            //数组中的元素依次进行比较找到最大值
             for (int i = 0; i < j ; i++) {
                 if(arr[i] > arr[i + 1]){
                     flag = true;

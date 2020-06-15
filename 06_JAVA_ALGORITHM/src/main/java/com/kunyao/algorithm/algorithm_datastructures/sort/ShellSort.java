@@ -1,5 +1,7 @@
 package com.kunyao.algorithm.algorithm_datastructures.sort;
 
+import java.util.Arrays;
+
 /**
  * @ClassName: ShellSort
  * @Author: kunyao
@@ -11,6 +13,8 @@ public class ShellSort {
 
     public static void main(String[] args) {
         int[] arr = {8,9,1,7,2,3,4,5,6,0};
+        ShellSort2(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
 
@@ -22,7 +26,7 @@ public class ShellSort {
         int temp = 0;
         for (int gap = arr.length / 2; gap > 0 ; gap /= 2) {
             for (int i = gap; i < arr.length ; i++) {
-                for (int j = i - gap; j >= 0 ; j-=gap) {
+                for (int j = i - gap; j >= 0 ; j-= gap) {
                     if(arr[j] > arr[j + gap]){
                         temp = arr[j];
                         arr[j] = arr[j + gap];
@@ -39,7 +43,9 @@ public class ShellSort {
      * @param arr
      */
     public static void ShellSort2(int[] arr){
+        //外层循环控制增量
         for (int gap = arr.length / 2; gap > 0 ; gap /= 2) {
+            //里层使用插入排序进行移位
             for (int i = gap; i < arr.length ; i++) {
                 int j = i;
                 int temp = arr[i];
