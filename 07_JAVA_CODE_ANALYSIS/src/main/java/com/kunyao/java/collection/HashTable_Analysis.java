@@ -1,5 +1,7 @@
 package com.kunyao.java.collection;
 
+import java.util.Hashtable;
+
 /**
  * @ClassName: HashTable_Analysis
  * @Author: kunyao
@@ -8,4 +10,8 @@ package com.kunyao.java.collection;
  * @Version: 1.0
  */
 public class HashTable_Analysis {
+
+    public static void main(String[] args) {
+        Hashtable hashtable = new Hashtable();
+    }
 }

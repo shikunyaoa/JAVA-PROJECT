@@ -1,5 +1,7 @@
 package com.kunyao.algorithm.algorithm_datastructures.sort;
 
+import java.util.Arrays;
+
 /**
  * @ClassName: InsertSort
  * @Author: kunyao
@@ -10,12 +12,14 @@ package com.kunyao.algorithm.algorithm_datastructures.sort;
 public class InsertSort {
 
     public static void main(String[] args) {
-        int[] arr = {101, 34, 119, 1, -1};
+        int[] arr = {5,1,2,3,4};
         InsertSort(arr);
-
+        System.out.println(Arrays.toString(arr));
     }
 
-    public static void InsertSort(int[] arr){
+    public static void  InsertSort(int[] arr){
+
+
 
         for (int i = 1; i < arr.length; i++) {
             //待插入的元素
@@ -32,9 +36,13 @@ public class InsertSort {
             }
 
             if(insertIndex + 1 != i){
+
                 arr[insertIndex + 1] = insertVal;
             }
 
         }
+
     }
+
+
 }
