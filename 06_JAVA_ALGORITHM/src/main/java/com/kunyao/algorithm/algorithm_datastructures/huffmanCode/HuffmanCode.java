@@ -1,5 +1,6 @@
 package com.kunyao.algorithm.algorithm_datastructures.huffmanCode;
 
+
 import javax.swing.undo.CannotUndoException;
 import java.util.*;
 
@@ -25,6 +26,117 @@ public class HuffmanCode {
         System.out.println(haffManTreeRoot);
 
         getCode(haffManTreeRoot, "", stringBuilder );
+    }
+
+
+    /**
+     *
+     * @param huffmanCodes 赫夫曼编码表
+     * @param huffmanBytes 赫夫曼得到的字节数组
+     * @return
+     */
+    private static byte[] decode(Map<Byte, String> huffmanCodes, byte[] huffmanBytes){
+
+        //1. 先得到huffmanBytes对应的二进制的字符串
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < huffmanBytes.length; i++) {
+            byte b = huffmanBytes[i];
+            boolean flag = (i == huffmanBytes.length - 1);
+            stringBuilder.append(byteToBitString(!flag, b));
+        }
+
+        Map<String, Byte> map = new HashMap<>();
+
+        for(Map.Entry<Byte, String> entry : huffmanCodes.entrySet()){
+            map.put(entry.getValue(), entry.getKey());
+        }
+
+        List<Byte> list = new ArrayList<>();
+        for (int i = 0; i < stringBuilder.length() ;) {
+            int count = 1; //小的计数器
+            Byte b = null;
+            boolean flag = true;
+            while(flag){
+
+                String key = stringBuilder.substring(i, i + count);
+                b = map.get(key);
+                if(b == null){
+                    count++;
+                }else{
+                    flag = false;
+                }
+            }
+
+            list.add(b);
+            i += count; //i直接移动到count
+        }
+
+        byte[] b = new byte[list.size()];
+        for (int i = 0; i < b.length ; i++) {
+            b[i] = list.get(i);
+        }
+        return b;
+    }
+
+    /**
+     * 将一个byte转成一个二进制的字符串
+     * @param flag 标志着是否需要补高位
+     * @param b 传入的byte
+     * @return
+     */
+    private static String byteToBitString(boolean flag, byte b){
+
+        int temp = b; //将b转成int,便于后面调用Integer的方法
+
+        //如果是正数还存在补高位
+        if(flag){
+            temp |= 256; //按位与
+        }
+
+        //返回的是temp对应的二进制补码
+        String str = Integer.toBinaryString(temp);
+
+        if(flag){
+            return str.substring(str.length() - 8);
+        }else{
+            return str;
+        }
+    }
+
+    /**
+     * 返回一个赫夫曼编码压缩后的byte[]
+     * @param bytes 原始的字符串对应的byte[]
+     * @param huffmanCodes 生成的赫夫曼编码map
+     * @return
+     */
+    private static byte[] zip(byte[] bytes, Map<Byte, String> huffmanCodes){
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(byte b : bytes){
+            stringBuilder.append(huffmanCodes.get(b));
+        }
+
+        int len = (stringBuilder.length() + 7) / 8;
+
+        //创建压缩后的byte数组
+        byte[]  huffmanCodeBytes = new byte[len];
+        int index = 0;
+        for(int i = 0; i < stringBuilder.length(); i += 8){
+            String strByte;
+            if(i + 8 > stringBuilder.length()){  //不够8位
+                strByte = stringBuilder.substring(i);
+            }else{
+                strByte = stringBuilder.substring(i, i + 8);
+            }
+
+            //将strByte转成一个byte，放入到huffmanCodeBytes
+            huffmanCodeBytes[index] = (byte) Integer.parseInt(strByte, 2);
+            index++;
+        }
+
+        return huffmanCodeBytes;
     }
 
     /**
