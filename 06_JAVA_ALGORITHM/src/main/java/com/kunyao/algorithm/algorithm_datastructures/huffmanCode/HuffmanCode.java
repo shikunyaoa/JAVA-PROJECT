@@ -1,7 +1,9 @@
 package com.kunyao.algorithm.algorithm_datastructures.huffmanCode;
 
 
+import javax.security.auth.DestroyFailedException;
 import javax.swing.undo.CannotUndoException;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -137,6 +139,106 @@ public class HuffmanCode {
         }
 
         return huffmanCodeBytes;
+    }
+
+
+    /**
+     * 解压文件
+     * @param srcFile
+     * @param dstFile
+     */
+    public static void unzipFile(String srcFile, String dstFile){
+
+        InputStream is = null;
+        ObjectInputStream ois = null;
+        OutputStream os = null;
+
+        try {
+            is = new FileInputStream(srcFile);
+
+            ois = new ObjectInputStream(is);
+
+            //读取byte数组
+            byte[] huffmanBytes = (byte[]) ois.readObject();
+
+            //读取赫夫曼编码表
+            Map<Byte, String> huffmanCodes = (Map<Byte, String>) ois.readObject();
+
+            //解码,得到原始的字节数组
+            byte[] bytes = decode(huffmanCodes, huffmanBytes);
+
+            //将bytes写入到目标文件
+            os = new FileOutputStream(dstFile);
+
+            os.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                ois.close();
+                os.close();
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 使用赫夫曼对文件进行压缩
+     * @param srcFile
+     * @param dstFile
+     */
+    public static void zipFile(String srcFile, String dstFile){
+
+        //创建文件的输入流
+        FileInputStream is = null;
+        OutputStream os = null;
+        ObjectOutputStream oos = null;
+        try {
+            is = new FileInputStream(srcFile);
+            //创建一个和源文件一样大小的byte[]
+            byte[] b = new byte[is.available()];
+            //读取文件
+            is.read(b);
+
+            //获得文件的赫夫曼编码表
+
+            //将字节数组转化为Node的集合
+            List<Node> nodes = getNodes(b);
+
+            //通过List创建对应的哈夫曼树
+            Node huffmanTree = createHuffmanTree(nodes);
+
+            //将传入的node节点的所有叶子节点的赫夫曼编码得到，并放入到huffmanCodes中
+            getCode(huffmanTree, "", stringBuilder );
+
+            //返回一个赫夫曼编码压缩后的byte[]
+            byte[] zip = zip(b, huffmanCodes);
+
+            //创建文件的输出流，存放输出文件
+            os = new FileOutputStream(dstFile);
+            //创建一个和文件输出流关联的ObjectOutputStream
+            oos = new ObjectOutputStream(os);
+            //将编码后的字节数组写入压缩文件
+            oos.writeObject(zip);
+
+
+            //将赫夫曼编码表写入压缩文件，为了以后恢复文件使用
+            oos.writeObject(huffmanCodes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                is.close();
+                os.close();
+                oos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
