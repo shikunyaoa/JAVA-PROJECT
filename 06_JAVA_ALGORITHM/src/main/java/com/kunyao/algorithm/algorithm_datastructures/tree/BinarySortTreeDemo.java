@@ -15,7 +15,6 @@ public class BinarySortTreeDemo {
         for (int i = 0; i < arr.length ; i++) {
             binarySortTree.add(new TreeNode(arr[i]));
         }
-
         binarySortTree.infixOrder();
     }
 }
@@ -24,6 +23,100 @@ public class BinarySortTreeDemo {
 class BinarySortTree{
 
     private TreeNode root;
+
+
+    public TreeNode search(int value){
+        if(root == null){
+            return null;
+        }else{
+            return root.search(value);
+        }
+    }
+
+
+    public TreeNode searchParent(int value){
+        if(root == null){
+            return null;
+        }else{
+            return this.searchParent(value);
+        }
+    }
+
+    /**
+     * 返回的以node为根节点的二叉排序树的最小节点的值
+     * 删除node为根节点的二叉排序树的最小节点
+     * @param node
+     * @return
+     */
+    public int delRightTreeMin(TreeNode node){
+        TreeNode target = node;
+
+        while(target.left != null){
+            target = target.left;
+        }
+        delNode(target.value);
+        return target.value;
+    }
+
+    public void delNode(int value){
+        if(root == null){
+            return ;
+        }else{
+            TreeNode targetNode = search(value);
+            if(targetNode == null){
+                return ;
+            }
+            //只有一个根节点且查找到的就是根节点
+            if(root.left == null && root.right == null){
+                root = null;
+                return ;
+            }
+
+
+            TreeNode parent = searchParent(value);
+
+            //如果要删除的节点是叶子节点
+            if(targetNode.left == null && targetNode.right == null){
+                //判断targetNode是父节点的左子节点还是右子节点
+                if(parent.left != null && parent.left.value == value){
+                    parent.left = null;
+                }else if(parent.right != null && parent.right.value == value){
+                    parent.right = null;
+                }
+            }else if(targetNode.left != null && targetNode.right != null){
+                //有两个子树
+                int minVal = delRightTreeMin(targetNode.right);
+                targetNode.value = minVal;
+            }else{
+                //有一个子树
+                if(targetNode.left != null){
+                    //判断targetNode是parent的左子节点还是右子节点
+                    if(parent != null){
+                        if(parent.left.value == value){
+                            parent.left = targetNode.left;
+                        }else{
+                            parent.right = targetNode.left;
+                        }
+                    }else{
+                        root = targetNode.left;
+                    }
+
+                }else{
+                    //如果要删除的节点有右子节点
+                    if(parent != null){
+                        if(parent.left.value == value){
+                            parent.left = targetNode.right;
+                        }else{
+                            parent.right = targetNode.right;
+                        }
+                    }else{
+                        root = targetNode.right;
+                    }
+
+                }
+            }
+        }
+    }
 
     public void add(TreeNode node){
         if(root == null){
@@ -75,6 +168,45 @@ class TreeNode{
                 this.right.add(node);
             }
         }
+    }
+
+    public TreeNode search(int value){
+        if(this.value == value){
+            return this;
+        }
+
+        if(this.value > value){
+            if(this.left != null){
+                return this.left.search(value);
+            }
+        }else{
+            if(this.right != null){
+                return this.right.search(value);
+            }
+        }
+        return null;
+    }
+
+    public TreeNode searchParent(int value){
+
+        if(this.value == value){
+            return this;
+        }
+
+        if(this.value > value){
+            if(this.left != null && this.left.value == value){
+                return this;
+            }else{
+                return this.left.searchParent(value);
+            }
+        }else{
+            if(this.right != null && this.right.value == value){
+                return this;
+            }else{
+                return this.right.searchParent(value);
+            }
+        }
+
     }
 
     //中序遍历
