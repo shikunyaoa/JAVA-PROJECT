@@ -3,7 +3,9 @@ package com.kunyao.algorithm.algorithm_datastructures.tree;
 /**
  * @ClassName: BinarySortTree
  * @Author: kunyao
- * @Description: 二叉排序树
+ * @Description: 二叉排序树：
+ * 对于树中的每个节点X，它的左子树中所有项的值小于X中的值，而
+ * 它的右子树中的所有项的值大于X中的项
  * @Date: 2020/6/22 22:57
  * @Version: 1.0
  */

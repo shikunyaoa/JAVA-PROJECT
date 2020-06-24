@@ -140,6 +140,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             //删除策略是：
             //用其右子树的最小的数据代替该节点的数据并递归的删除那个节点
             root.element = findMin(root.right).element;
+            //将两个节点的转化为一个节点的删除
             root.right = remove(root.element, root.right);
         }else{
             //如果节点有一个儿子，则调整父节点的链进行删除
