@@ -9,6 +9,24 @@ package com.kunyao.algorithm.algorithm_datastructures.tree;
  */
 public class AVLTreeDemo {
 
+    public static void main(String[] args) {
+
+        int[] arr = {4, 3, 6, 5, 7, 8};
+        AVlTree aVlTree = new AVlTree();
+
+        for (int i = 0; i < arr.length ; i++) {
+            aVlTree.add(new AvlNode(arr[i]));
+        }
+
+        System.out.println("中序遍历");
+        aVlTree.infixOrder();
+
+
+        System.out.println("在没有旋转之前");
+        System.out.println(aVlTree.getRoot().height());
+        System.out.println("左子树的高度=" + aVlTree.getRoot().leftHeight());
+        System.out.println("右子树的高度=" + aVlTree.getRoot().rightHeight());
+    }
 }
 
 class AVlTree{
@@ -183,6 +201,44 @@ class AvlNode{
         return Math.max(left == null ? 0 : left.height(), right == null ? 0 : right.height()) + 1;
     }
 
+    //左旋转
+    private void leftRotate(){
+
+        //创建新节点，以当前节点的值
+        AvlNode avlNode = new AvlNode(value);
+
+        //把新的节点的左子树设置成当前节点的左子树
+        avlNode.left = left;
+
+        //把新的节点的右子树设置成当前节点的右节点的左子树
+        avlNode.right = right.left;
+
+        //把当前节点的值替换成右子树的值
+        value = right.value;
+
+        //把当前节点的额右子树设置成右子树的右子树
+        right = right.right;
+
+        //把当前节点的左子树设置成新节点
+        left = avlNode;
+    }
+
+
+    //右旋转
+    private void rightRotate(){
+        AvlNode avlNode = new AvlNode(value);
+
+        avlNode.right = right;
+
+        avlNode.left = left.right;
+
+        value = left.value;
+
+        left = left.left;
+
+        right = avlNode;
+    }
+
     /**
      * 查找要删除的节点
      * @param value
@@ -247,6 +303,39 @@ class AvlNode{
             }else{
                 this.right.add(node);
             }
+        }
+
+        //当添加完一个节点后，如果右子树的高度比左子树的高度大于1， 进行左旋转
+        if(rightHeight() - leftHeight() > 1){
+
+
+            //如果它的右子树的左子树高度大于它的右子树的右子树的高度
+            if(right != null && right.leftHeight() > right.rightHeight()){
+
+                //双旋转
+                //先对当前节点的右子树进行右旋转
+                right.rightRotate();
+                //在对当前节点进行左旋转
+                leftRotate();
+            }else{
+                leftRotate();
+            }
+            return;
+        }
+
+        //当添加完一个节点后，如果左子树的高度比右子树的高度大于1， 进行右旋转
+        if(leftHeight() - rightHeight() > 1){
+
+            //如果它的左子树的右子树高度大于它的左子树的左子树的高度
+            if(left != null && left.rightHeight() > left.leftHeight()){
+                //先对当前节点的左子树进行左旋转
+                left.leftRotate();
+                //在对当前节点进行右旋转
+                rightRotate();
+            }else{
+                rightRotate();
+            }
+
         }
     }
 
