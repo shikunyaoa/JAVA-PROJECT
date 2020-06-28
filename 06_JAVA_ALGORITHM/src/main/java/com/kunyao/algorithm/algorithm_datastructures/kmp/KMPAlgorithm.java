@@ -33,7 +33,7 @@ public class KMPAlgorithm {
             if(str1.charAt(i) == str2.charAt(j)){
                 j++;
             }
-            
+
             if(j == str2.length()){
                 return i - j + 1;
             }
