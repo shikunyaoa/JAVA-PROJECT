@@ -47,7 +47,7 @@ public class HeapSort {
      */
     public static void adjustHeap(int[] arr, int i, int length){
 
-        //先取出当前元素的值，保存在临时比阿娘
+        //先取出当前元素的值，保存在临时变量
         int temp = arr[i];
 
         //k = i * 2 + 1 k是i节点的左子节点
