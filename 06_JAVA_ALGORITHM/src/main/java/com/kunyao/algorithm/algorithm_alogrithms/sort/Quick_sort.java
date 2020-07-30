@@ -22,6 +22,35 @@ public class Quick_sort {
        sort(a, j + 1, hi);
     }
 
+    /**
+     * 三向切分的快速排序
+     * @param a
+     * @param lo
+     * @param hi
+     */
+    public static void sort2(Comparable[] a, int lo, int hi){
+        if(hi <= lo){
+            return;
+        }
+        int lt = lo, i = lo + 1, gt = hi;
+        Comparable v = a[lo];
+        while(i <= gt){
+            int cmp = a[i].compareTo(v);
+            if(cmp < 0){
+                //a[i]小于v,将a[lt]和a[i]交换，将lt和i加一
+                exch(a, lt++, i++);
+            }else if(cmp > 0){
+                //a[i]大于v，将a[gt]和a[i]交换，将gt减一
+                exch(a, i, gt--);
+            }else{
+                //a[i]等于v,将i加一
+                i++;
+            }
+        }
+        sort2(a, lo, lt - 1);
+        sort2(a, gt + 1, hi);
+    }
+
     private static int partition(Comparable[] a, int lo, int hi){
         //将数组切分为a[lo..i-1], a[i], a[i+1..hi]
         int i= lo, j = hi + 1; //左右扫描指针
