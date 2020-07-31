@@ -1,5 +1,8 @@
 package com.kunyao.algorithm.algorithm_alogrithms.search;
 
+
+import sun.misc.Queue;
+
 /**
  * @ClassName: BinarySearchTree
  * @Author: kunyao
@@ -131,6 +134,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             //将当前节点右子树中最小的节点替换掉当前节点
             x = min(t.right);
             //将替换后节点的右节点设置为删除替换节点后的父节点
+            //被删除节点的右节点会成为替换节点父节点的左节点
             x.right = deleteMin(t.right);
             //将替换后节点的左节点设置为原节点的左节点
             x.left = t.left;
@@ -148,5 +152,47 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
             return x;
         }
         return min(x.left);
+    }
+
+    public Key max(){
+        return max(root).key;
+    }
+
+    private Node max(Node x){
+        if(x.right == null){
+            return x;
+        }
+        return max(x.right);
+    }
+
+    public Iterable<Key> keys(){
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key lo, Key hi){
+        Queue<Key> queue = new Queue<Key>();
+        keys(root, queue, lo, hi);
+//        return queue;
+        return null;
+    }
+
+    private void keys(Node x, Queue<Key> queue, Key lo, Key hi){
+        if(x == null){
+            return;
+        }
+
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+
+        if(cmplo < 0){
+            keys(x.left, queue, lo, hi);
+        }
+        if(cmplo <= 0 && cmphi >= 0){
+            queue.enqueue(x.key);
+        }
+
+        if(cmphi > 0){
+            keys(x.right, queue, lo, hi);
+        }
     }
 }
