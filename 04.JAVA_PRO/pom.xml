@@ -23,7 +23,7 @@
         <swagger2.version>2.6.1</swagger2.version>
         <hutool.version>5.0.4</hutool.version>
         <guava.version>28.1-jre</guava.version>
-        <commos-net.version>3.6</commos-net.version>
+        <commos-net.version>3.9.0</commos-net.version>
         <wx.version>3.6.0</wx.version>
     </properties>
 
@@ -167,7 +167,7 @@
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
-            <version>3.6</version>
+            <version>3.9.0</version>
         </dependency>
 
 
